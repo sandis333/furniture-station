@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8">
+  <title>Furnitūras izņemšanas stacija</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div id="protectionOverlay" class="protection-overlay visible">
+    <div class="overlay-background"></div>
+    <div class="overlay-content">
+      <div class="overlay-clock">--:--:--</div>
+      <div class="overlay-message">Novietojiet kartiņu uz lasītāja</div>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <button id="backButton" class="secondary-button hidden" type="button">← Atpakaļ</button>
+      <div>
+        <h1>Sakomplektētās furnitūras izņemšana</h1>
+        <p id="breadcrumb" class="breadcrumb">Izvēlieties MBK vai KPA</p>
+      </div>
+      <div class="status-panel">
+        <span id="connectionIndicator" class="indicator disconnected">● Stacija</span>
+        <span id="scannerStatus" class="indicator scanner-waiting">Skeneris: gaida</span>
+        <span id="userStatus" class="indicator unauthorized">Darbinieks: nav autorizēts</span>
+      </div>
+    </header>
+
+    <main id="contentArea" class="content">
+      <div class="loading-card">Ielādē datus…</div>
+    </main>
+
+    <div id="messageBox" class="message-box hidden"></div>
+  </div>
+
+  <script type="module" src="/static/js/main.js"></script>
+</body>
+</html>

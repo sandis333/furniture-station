@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Furnitūras izņemšanas stacija
+Comment=Sakomplektētās furnitūras izņemšanas stacijas aplikācija
+Exec=/bin/bash -c 'sudo systemctl restart furnituras_iznemsanas_stacija.service'
+Icon=/home/pi/Desktop/furnituras_iznemsanas_stacija/scanning.png
+Terminal=false
+StartupNotify=true
+Categories=Development;
+Path=/home/pi/Desktop/furnituras_iznemsanas_stacija

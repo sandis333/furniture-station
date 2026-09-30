@@ -1,8 +1,8 @@
 #!/bin/bash
 export DISPLAY=:0
-export XAUTHORITY=/home/pi/.Xauthority
+export XAUTHORITY=/home/bsadmin/.Xauthority
 
-PROJECT_DIR=/home/pi/Desktop/furnituras_iznemsanas_stacija
+PROJECT_DIR=/home/bsadmin/Desktop/furnituras_iznemsanas_stacija
 PROFILE_DIR=/tmp/furnituras-iznemsanas-kiosk
 
 if ! ss -tlnp 2>/dev/null | grep -q ':8000'; then

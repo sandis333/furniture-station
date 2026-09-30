@@ -15,6 +15,7 @@ export class App {
     this.options = null;
     this.selectedOptionIndex = null;
     this.selectedKids = new Set();
+    this.pendingCancelSessionId = null;
     this.messageTimer = null;
     this.elements = {
       backButton: document.getElementById('backButton'),
@@ -24,6 +25,9 @@ export class App {
       userStatus: document.getElementById('userStatus'),
       contentArea: document.getElementById('contentArea'),
       messageBox: document.getElementById('messageBox'),
+      cancelSessionModal: document.getElementById('cancelSessionModal'),
+      dismissCancelSession: document.getElementById('dismissCancelSession'),
+      confirmCancelSession: document.getElementById('confirmCancelSession'),
     };
   }
 
@@ -34,6 +38,20 @@ export class App {
     this.webSocketService.onAuthStatusChange(this.handleAuthStatusChange.bind(this));
     this.webSocketService.onTerminalDataChange(this.handleTerminalDataChange.bind(this));
     this.elements.backButton.addEventListener('click', () => this.goBack());
+    this.elements.dismissCancelSession.addEventListener('click', () => this.closeCancelSessionModal());
+    this.elements.confirmCancelSession.addEventListener('click', () => {
+      const sessionId = this.pendingCancelSessionId;
+      this.closeCancelSessionModal();
+      if (sessionId) this.cancelSession(sessionId);
+    });
+    this.elements.cancelSessionModal.addEventListener('click', (event) => {
+      if (event.target === this.elements.cancelSessionModal) {
+        this.closeCancelSessionModal();
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') this.closeCancelSessionModal();
+    });
   }
 
   async request(endpoint, options = {}) {
@@ -332,7 +350,9 @@ export class App {
         <button id="cancelSession" class="danger-button" type="button">Atcelt izņemšanu</button>
       </section>
     `;
-    document.getElementById('cancelSession').addEventListener('click', () => this.cancelSession(session.session_id));
+    document.getElementById('cancelSession').addEventListener('click', () => {
+      this.openCancelSessionModal(session.session_id);
+    });
   }
 
   renderComplete(session) {
@@ -353,8 +373,17 @@ export class App {
     document.getElementById('newProcess').addEventListener('click', () => this.renderOrderTypes());
   }
 
+  openCancelSessionModal(sessionId) {
+    this.pendingCancelSessionId = sessionId;
+    this.elements.cancelSessionModal.classList.remove('hidden');
+  }
+
+  closeCancelSessionModal() {
+    this.pendingCancelSessionId = null;
+    this.elements.cancelSessionModal.classList.add('hidden');
+  }
+
   async cancelSession(sessionId) {
-    if (!window.confirm('Vai tiešām atcelt atlikušo KID izņemšanu?')) return;
     try {
       const response = await this.request('/api/cancel-session', {
         method: 'POST',
@@ -391,6 +420,7 @@ export class App {
     this.elements.userStatus.className = `indicator ${this.isAuthenticated ? 'authorized' : 'unauthorized'}`;
 
     if (!this.isAuthenticated) {
+      this.closeCancelSessionModal();
       this.currentView = 'locked';
       this.selectedOrderType = null;
       this.selectedOrder = null;

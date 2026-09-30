@@ -4,11 +4,11 @@ After=network-online.target graphical.target
 Wants=network-online.target graphical.target
 
 [Service]
-User=pi
-WorkingDirectory=/home/pi/Desktop/furnituras_iznemsanas_stacija
-ExecStart=/bin/bash /home/pi/Desktop/furnituras_iznemsanas_stacija/start_app.sh
+User=bsadmin
+WorkingDirectory=/home/bsadmin/Desktop/furnituras_iznemsanas_stacija/furniture-station
+ExecStart=/bin/bash /home/bsadmin/Desktop/furnituras_iznemsanas_stacija/furniture-station/start_app.sh
 Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment=XAUTHORITY=/home/bsadmin/.Xauthority
 Restart=always
 RestartSec=10
 StandardOutput=journal

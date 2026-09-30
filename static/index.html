@@ -17,7 +17,7 @@
 
   <div class="app-shell">
     <header class="topbar">
-      <button id="backButton" class="secondary-button hidden" type="button">← Atpakaļ</button>
+      <button id="backButton" class="secondary-button hidden" type="button">Atpakaļ</button>
       <div>
         <h1>Sakomplektētās furnitūras izņemšana</h1>
         <p id="breadcrumb" class="breadcrumb">Izvēlieties MBK vai KPA</p>
@@ -34,6 +34,17 @@
     </main>
 
     <div id="messageBox" class="message-box hidden"></div>
+  </div>
+
+  <div id="cancelSessionModal" class="modal-overlay hidden">
+    <div class="modal-dialog">
+      <h2>Atcelt izņemšanu?</h2>
+      <p>Vai tiešām atcelt atlikušo KID izņemšanu?</p>
+      <div class="modal-actions">
+        <button id="dismissCancelSession" class="secondary-button" type="button">Neatcelt</button>
+        <button id="confirmCancelSession" class="danger-button" type="button">Atcelt izņemšanu</button>
+      </div>
+    </div>
   </div>
 
   <script type="module" src="/static/js/main.js"></script>

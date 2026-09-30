@@ -522,6 +522,50 @@ h1 {
   background: #8c2f39;
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, .72);
+}
+
+.modal-dialog {
+  width: min(32rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--panel);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5);
+  text-align: center;
+}
+
+.modal-dialog h2, .modal-dialog p {
+  margin: 0;
+}
+
+.modal-dialog p {
+  color: var(--muted);
+  font-size: 1.25rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-actions .danger-button {
+  align-self: auto;
+  background: var(--red);
+  color: #07111f;
+}
+
 @media (max-width: 50rem) {
   .topbar {
     grid-template-columns: auto 1fr;
@@ -567,5 +611,9 @@ h1 {
 
   .scan-count {
     grid-column: 2;
+  }
+
+  .modal-actions {
+    flex-direction: column;
   }
 }

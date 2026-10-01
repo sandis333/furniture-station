@@ -2,7 +2,7 @@
 export DISPLAY=:0
 export XAUTHORITY=/home/bsadmin/.Xauthority
 
-PROJECT_DIR=/home/bsadmin/Desktop/furnituras_iznemsanas_stacija
+PROJECT_DIR=/home/bsadmin/Desktop/furnituras_iznemsanas_stacija/furniture-station
 PROFILE_DIR=/tmp/furnituras-iznemsanas-kiosk
 
 if ! ss -tlnp 2>/dev/null | grep -q ':8000'; then

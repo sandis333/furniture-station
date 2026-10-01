@@ -1,14 +1,14 @@
 :root {
   color-scheme: dark;
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  background: #07111f;
+  font-family: 'Courier New', monospace;
+  background: #000;
   color: #f7f9fc;
   --panel: #111f31;
   --panel-soft: #182a40;
   --line: #2c4158;
-  --cyan: #41d9ff;
-  --green: #4ee28a;
-  --red: #ff6b6b;
+  --cyan: #00ffff;
+  --green: #00ff00;
+  --red: #ff0000;
   --amber: #ffc857;
   --muted: #9fb1c7;
 }
@@ -20,7 +20,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at 15% 0%, rgba(43, 114, 155, .32), transparent 32rem), #07111f;
+  background: #000;
 }
 
 button, input {
@@ -49,7 +49,7 @@ button {
   gap: 1.5rem;
   padding: 1.25rem 1.75rem;
   border-bottom: 1px solid var(--line);
-  background: rgba(7, 17, 31, .94);
+  background: rgba(0, 0, 0, .94);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -360,9 +360,21 @@ h1 {
 }
 
 .confirm-button {
-  align-self: center;
   min-width: min(32.5rem, 100%);
   font-size: 1.25rem;
+}
+
+.selection-actions {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.selection-actions .secondary-button:disabled {
+  opacity: .3;
+  cursor: not-allowed;
 }
 
 .scan-view {
@@ -435,6 +447,7 @@ h1 {
 
 .scan-item div span {
   color: var(--muted);
+  font-size: 1.25rem;
 }
 
 .scan-count {
@@ -462,7 +475,7 @@ h1 {
   font-weight: 900;
   color: #052113;
   background: var(--green);
-  box-shadow: 0 0 3.5rem rgba(78, 226, 138, .35);
+  box-shadow: 0 0 3.5rem var(--green);
 }
 
 .complete-view p {
@@ -511,15 +524,15 @@ h1 {
 }
 
 .message-box.success {
-  background: #14633a;
+  background: var(--green);
 }
 
 .message-box.info {
-  background: #14536a;
+  background: var(--cyan);
 }
 
 .message-box.error {
-  background: #8c2f39;
+  background: var(--red);
 }
 
 .modal-overlay {
@@ -552,6 +565,14 @@ h1 {
 .modal-dialog p {
   color: var(--muted);
   font-size: 1.25rem;
+}
+
+.modal-dialog .modal-warning {
+  padding: 1rem;
+  border: 1px solid var(--amber);
+  border-radius: .75rem;
+  color: var(--amber);
+  font-weight: 800;
 }
 
 .modal-actions {

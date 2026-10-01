@@ -249,6 +249,10 @@ export class App {
       true,
     );
     const selectedCount = this.getSelectedCount();
+    const maxOptionIndex = this.getMaxOptionIndex();
+    const maxCount = maxOptionIndex === null
+      ? 0
+      : this.options.options[maxOptionIndex].kit_count;
     const options = this.options.options.map((option, optionIndex) => {
       const selected = this.selectedOptionIndex === optionIndex;
       const locations = option.kids
@@ -277,15 +281,22 @@ export class App {
         </div>
         <p class="selection-help">Izvēlieties komplektu skaitu. Katra opcija automātiski iekļauj visus tai nepieciešamos KID.</p>
         <div class="kit-grid">${options || '<p class="empty-state">Nav pieejamas pilnu komplektu KID kombinācijas.</p>'}</div>
-        <button id="confirmSelection" class="primary-button confirm-button" type="button"
-                ${selectedCount === 0 ? 'disabled' : ''}>
-          Izņemt izvēlētos komplektus
-        </button>
+        <div class="selection-actions">
+          <button id="takeAll" class="secondary-button confirm-button" type="button"
+                  ${maxCount === 0 ? 'disabled' : ''}>
+            Izņemt visu (${maxCount} komplekti)
+          </button>
+          <button id="confirmSelection" class="primary-button confirm-button" type="button"
+                  ${selectedCount === 0 ? 'disabled' : ''}>
+            Izņemt izvēlētos komplektus
+          </button>
+        </div>
       </section>
     `;
     this.elements.contentArea.querySelectorAll('.kit-option').forEach((button) => {
       button.addEventListener('click', () => this.selectOption(Number(button.dataset.optionIndex)));
     });
+    document.getElementById('takeAll').addEventListener('click', () => this.startMaxSession());
     document.getElementById('confirmSelection').addEventListener('click', () => this.startSession());
   }
 
@@ -300,6 +311,23 @@ export class App {
   getSelectedCount() {
     if (this.selectedOptionIndex === null) return 0;
     return this.options?.options?.[this.selectedOptionIndex]?.kit_count || 0;
+  }
+
+  getMaxOptionIndex() {
+    const options = this.options?.options || [];
+    if (options.length === 0) return null;
+    return options.reduce((maxIndex, option, optionIndex) => (
+      option.kit_count > options[maxIndex].kit_count ? optionIndex : maxIndex
+    ), 0);
+  }
+
+  startMaxSession() {
+    const maxOptionIndex = this.getMaxOptionIndex();
+    if (maxOptionIndex === null) return;
+    const maxOption = this.options.options[maxOptionIndex];
+    this.selectedOptionIndex = maxOptionIndex;
+    this.selectedKids = new Set(maxOption.kids.map((kid) => kid.kid));
+    this.startSession();
   }
 
   async startSession() {

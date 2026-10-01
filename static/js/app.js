@@ -163,8 +163,9 @@ export class App {
             <p class="eyebrow">1. solis</p>
             <h2>Darba uzdevums</h2>
           </div>
-          <input id="searchInput" class="search-input" type="search" placeholder="Meklēt ${this.selectedOrderType}">
         </div>
+        <input id="searchInput" class="search-input order-search-input" type="search"
+               placeholder="Meklēt ${this.selectedOrderType}">
         <div id="choiceGrid" class="choice-grid">
           ${cards || '<p class="empty-state">Pašlaik nav izņemšanai pieejamu komplektu.</p>'}
         </div>

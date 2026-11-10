@@ -31,7 +31,8 @@ export class ProtectionOverlay {
     this.message.textContent = authorized
       ? ''
       : (data?.message || 'Novietojiet kartiņu uz lasītāja');
-    this.overlay.classList.toggle('unauthorized', data?.reason === 'unauthorized');
+    const showError = ['unauthorized', 'error'].includes(data?.reason);
+    this.overlay.classList.toggle('unauthorized', showError);
     this.setVisible(!authorized);
   }
 
